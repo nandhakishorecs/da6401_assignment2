@@ -9,3 +9,6 @@ assignment2/
 
 # Mac's window size + application icon size checker 
 .DS_Store/
+
+# not pushing dataset into github 
+inaturalist_12K/
