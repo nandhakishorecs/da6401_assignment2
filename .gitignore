@@ -11,4 +11,4 @@ assignment2/
 .DS_Store/
 
 # not pushing dataset into github 
-inaturalist_12K/
+PartA/dataset/inaturalist_12K/

@@ -1,0 +1,25 @@
+.
+└── inaturalist_12K
+    ├── test
+    │   ├── Amphibia
+    │   ├── Animalia
+                .
+                .
+                .
+    │   └── Reptilia
+    ├── train
+    │   ├── Amphibia
+    │   ├── Animalia
+                .
+                .
+                .
+    │   └── Reptilia
+    └── val
+        ├── Amphibia
+        ├── Animalia
+                .
+                .
+                .
+        └── Reptilia
+
+34 directories
