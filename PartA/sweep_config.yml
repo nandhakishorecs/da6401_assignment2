@@ -1,0 +1,42 @@
+program: sweep.py
+method: bayes
+metric:
+  name: val_acc
+  goal: maximize
+parameters:
+  epochs:
+    values: [10, 20]
+  learning_rate:
+    distribution: log_uniform_values
+    min: 1e-5
+    max: 1e-2
+  weight_decay:
+    distribution: log_uniform_values
+    min: 1e-6
+    max: 1e-3
+  n_filters:
+    values: [32, 64, 128]
+  kernel_size:
+    values: [3, 4, 5]
+  optimiser:
+    values: ['adam', 'sgd']
+  batch_size:
+    values: [32, 64, 128]
+  n_dense_neurons:
+    values: [32, 64, 128]
+  use_batch_norm:
+    values: [True, False]
+  use_augmentation:
+    values: [True, False]
+  activation:
+    values: ['relu', 'silu', 'gelu', 'mish']
+  bias:
+    values: [True, False]
+  # padding_type:
+  #   values: ['same', 'valid']
+  filter_strategy:
+    values: ['same', 'double', 'half']
+  dropout_rate:
+    distribution: uniform
+    min: 0.0
+    max: 0.9
