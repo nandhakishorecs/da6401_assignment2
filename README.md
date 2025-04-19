@@ -36,3 +36,7 @@ pillow
 ```console 
 $ wandb login 
 ```
+5. To split the train dataset into train + val datasets, rename the val folder and run the file to split the dataset. 
+```python
+$ python3 split_dataset.py
+```

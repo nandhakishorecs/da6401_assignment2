@@ -72,5 +72,49 @@ To do the sweep, update the global variables in the file [sweep.py](https://gith
 $ python3 sweep.py
 ```
 
+## Question 3 (15 Marks)
+
+Based on the above experiments, the following observations are made: 
+
+The The iNaturalist dataset dataset has 10 classes of various species as images of different sizes. The number of samples per class is not same and the dataset has class imbalance. 
+
+Based on the skewness in the class distribution, the contribution from the features of the samples in less numbers impacts the training of the model. 
+
+For the given 5 layered model with CNN + Activation + MaxPool layer,  the following hyper parameters where found highly impactful: <br>
+**Activation Function**: GELU <br>
+**Convolution Kernel Size**: $5 \times 5$ <br>
+**Convolution Padding Type**: 'Same' - Padding in such a way that the input size and output size remains the same. <br>
+**Dropout**: Dropout probabilities from the range [0.3,0.45] gives better validation accuracy. <br>
+**Batch Normalisation**: The sweeps without batch normalisation gave better validation accuracy.  <br>
+**Data Augmentation**: The sweeps with Data Augmentation gave better validation accuracy. <br>
+**Weight Decay**: Weight decay in the range [0.001,0.005] gives better validation accuracy. <br>
+**Number of filters per Convolution-Activation-MaxPooling block**: Keeping the number of filters same as the initial number of filters gives better validation accuracy than doubling or halving the number of filters after each Convolution-Activation-MaxPooling block <br>
+**Epochs**: Training the model from scratch with larger number of epochs gives better accuracy (40 epochs). 
+
+## Question 4 (5 Marks) 
+
+The Best Model chosen from  the sweeps: <br>
+- Training Accuracy: 53.76 % <br>
+- Validation Accuracy: 43.38 % <br>
+- Activation Function: GELU <br>
+- Learning Rate: 0.00027 <br>
+- Optimiser: Adam<br>
+- Epochs: 40 <br>
+- Number of Convolution Filters: 64 <br>
+- Convolution Kernel Size: $5 \times 5$ <br>
+- Batch Size: 32 <br>
+- Batch Normalisation: True <br>
+- Data Augmentation: True <br>
+- Filter Strategy: Same number of filters every Convolution-Activation-MaxPool block <br>
+- Dropout: 0.31396 <br>
+- Number of Neurons in Dense Layer: 128 <br>
+- Weight Decay: 0.00133 <br>
+
+Best Model accuracy on test set: 44.82% <br>
+To get the 10 x 3 image grid, run the following file: 
+```console
+$ python3 grid.py
+```
+
 
 

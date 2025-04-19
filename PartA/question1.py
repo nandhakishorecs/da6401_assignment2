@@ -43,20 +43,20 @@ model = ImageClassifier(
     n_layers = 5,
     in_channels = 3,  # Adjust to 1 for grayscale images
     n_classes = n_classes,
-    kernel_size = 4,  # Choose from [3, 4, 5]
-    n_filters = 32,
-    filter_strategy = 'half',  # Options: 'same', 'double', 'half'
+    kernel_size = 5,  # Choose from [3, 4, 5]
+    n_filters = 64,
+    filter_strategy = 'same',  # Options: 'same', 'double', 'half'
     padding_mode = 'same',
-    n_epochs = 2,
+    n_epochs = 80,
     n_neurons = 128,
-    activation = 'relu',
-    optimiser = 'sgd',
+    activation = 'gelu',
+    optimiser = 'adam',
     criterion = 'cross_entropy',
-    learning_rate = 1e-3,
-    weight_decay = 1e-4,
+    learning_rate = 0.00027,
+    weight_decay = 0.00133,
     batch_norm = True,
-    drop_out = 0.1,
-    use_wandb = False,
+    drop_out = 0.31396,
+    use_wandb = True,
     name = 'DA24M011',
     validation = True
 ).to(device)
@@ -74,6 +74,59 @@ except Exception as e:
     print(f"Training failed with error: {str(e)}")
     raise
 
-# # Print final results
-# print(f"Final Training Accuracy: {train_acc[-1]:.2f}%")
-# print(f"Final Validation Accuracy: {val_acc[-1]:.2f}%")
+# Print final results
+print(f"Final Training Accuracy: {train_acc[-1]:.2f}%")
+print(f"Final Validation Accuracy: {val_acc[-1]:.2f}%")
+
+# Save the trained model
+model_path = 'model.pth'
+torch.save(model.state_dict(), model_path)
+print(f"Model saved to {model_path}")
+
+# ---------- TESTING -----------------------
+
+test_dataset = datasets.ImageFolder(
+    root=f'{dataset_root}/test',
+    transform=val_transform
+)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=2)
+
+# Load the saved model
+loaded_model = ImageClassifier(
+    input_size = (input_size, input_size),
+    n_layers = 5,
+    in_channels = 3,  
+    n_classes = n_classes,
+    kernel_size = 4,  
+    n_filters = 32,
+    filter_strategy = 'half',  
+    padding_mode = 'same',
+    n_epochs = 2,
+    n_neurons = 128,
+    activation = 'relu',
+    optimiser = 'sgd',
+    criterion = 'cross_entropy',
+    learning_rate = 1e-3,
+    weight_decay = 1e-4,
+    batch_norm = True,
+    drop_out = 0.1,
+    use_wandb = False,
+    name = 'DA24M011',
+    validation = True
+).to(device)
+loaded_model.load_state_dict(torch.load(model_path))
+loaded_model.eval()
+print(f"Model loaded from {model_path}")
+
+# Calculate test accuracy using the loaded model
+correct = 0
+total = 0
+with torch.no_grad():
+    for images, labels in test_loader:
+        images, labels = images, labels
+        predictions = loaded_model.predict(images)
+        correct += (predictions == labels).sum().item()
+        total += labels.size(0)
+
+test_accuracy = 100 * correct / total
+print(f"Final Test Accuracy: {test_accuracy:.2f}%")

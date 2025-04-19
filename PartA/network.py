@@ -304,6 +304,36 @@ class ImageClassifier(nn.Module):
             return train_losses, val_losses, train_accuracies, val_accuracies
         return train_losses, train_accuracies
 
+    def predict(self, data, device: str = 'cpu'):
+        if isinstance(device, str):
+            device = torch.device(device)
+        
+        self.to(device)
+        self.eval()
+        predictions = []
+
+        with torch.no_grad():
+            if isinstance(data, torch.utils.data.DataLoader):
+                for images, _ in data:
+                    images = images.to(device)
+                    outputs = self(images)
+                    _, predicted = torch.max(outputs, 1)
+                    predictions.append(predicted.cpu())
+            else:
+                if not isinstance(data, torch.Tensor):
+                    raise ValueError("Input data must be a DataLoader or torch.Tensor")
+                if data.dim() == 3:  # Add batch dimension if missing
+                    data = data.unsqueeze(0)
+                if data.size(1) != self._in_channels or data.size(2) != self._input_size[0] or data.size(3) != self._input_size[1]:
+                    raise ValueError(f"Input tensor must have shape (batch_size, {self._in_channels}, {self._input_size[0]}, {self._input_size[1]})")
+                data = data.to(device)
+                outputs = self(data)
+                _, predicted = torch.max(outputs, 1)
+                predictions.append(predicted.cpu())
+
+        return torch.cat(predictions)
+
+
     def __repr__(self) -> str:
         return f'''\033[1;32mImage Classifier using CNNs\033[0m
     \033[1;32mModel Details:\033[0m
