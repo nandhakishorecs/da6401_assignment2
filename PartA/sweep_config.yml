@@ -9,11 +9,11 @@ parameters:
   learning_rate:
     distribution: log_uniform_values
     min: 1e-5
-    max: 1e-2
+    max: 1e-3
   weight_decay:
     distribution: log_uniform_values
-    min: 1e-6
-    max: 1e-3
+    min: 1e-3
+    max: 1e-2
   n_filters:
     values: [32, 64, 128]
   kernel_size:
