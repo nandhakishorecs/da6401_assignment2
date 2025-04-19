@@ -1,4 +1,8 @@
 numpy 
 torch 
+torchvision
 tqdm 
 requests
+wandb
+PyYAML 
+pillow
