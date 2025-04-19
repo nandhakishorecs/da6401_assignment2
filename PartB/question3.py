@@ -43,7 +43,7 @@ data_transforms = {
 }
 
 # Load iNaturalist dataset (assuming folder structure: data/inaturalist/train and data/inaturalist/val)
-data_dir = 'data/inaturalist'
+data_dir = '"/Users/nandhakishorecs/Documents/IITM/Jan_2025/DA6401/Assignments/Assignment2/PartA/dataset/inaturalist_12K"'
 image_datasets = {
     'train': datasets.ImageFolder(f'{data_dir}/train', data_transforms['train']),
     'val': datasets.ImageFolder(f'{data_dir}/val', data_transforms['val'])

@@ -43,7 +43,6 @@ class_names = test_dataset.classes
 
 # Initialize and load the model
 model = ImageClassifier(
-    input_size = (input_size, input_size),
     n_layers = 5,
     in_channels = 3,  # Adjust to 1 for grayscale images
     n_classes = n_classes,
@@ -60,7 +59,7 @@ model = ImageClassifier(
     weight_decay = 0.00133,
     batch_norm = True,
     drop_out = 0.31396,
-    use_wandb = True,
+    use_wandb = False,
     name = 'DA24M011',
     validation = True
 ).to(device)

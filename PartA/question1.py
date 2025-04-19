@@ -93,23 +93,22 @@ test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers
 
 # Load the saved model
 loaded_model = ImageClassifier(
-    input_size = (input_size, input_size),
     n_layers = 5,
-    in_channels = 3,  
+    in_channels = 3,  # Adjust to 1 for grayscale images
     n_classes = n_classes,
-    kernel_size = 4,  
-    n_filters = 32,
-    filter_strategy = 'half',  
+    kernel_size = 5,  # Choose from [3, 4, 5]
+    n_filters = 64,
+    filter_strategy = 'same',  # Options: 'same', 'double', 'half'
     padding_mode = 'same',
-    n_epochs = 2,
+    n_epochs = 80,
     n_neurons = 128,
-    activation = 'relu',
-    optimiser = 'sgd',
+    activation = 'gelu',
+    optimiser = 'adam',
     criterion = 'cross_entropy',
-    learning_rate = 1e-3,
-    weight_decay = 1e-4,
+    learning_rate = 0.00027,
+    weight_decay = 0.00133,
     batch_norm = True,
-    drop_out = 0.1,
+    drop_out = 0.31396,
     use_wandb = False,
     name = 'DA24M011',
     validation = True
