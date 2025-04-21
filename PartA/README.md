@@ -116,5 +116,35 @@ To get the 10 x 3 image grid, run the following file:
 $ python3 grid.py
 ```
 
+## Training the model
 
+To train the model, use the train.py file with the following command line arguemnts
 
+| Flag Name              | Default Value        | Description                                           |
+|------------------------|----------------------|-------------------------------------------------------|
+| -d, --device           | 'cpu'                | Use 'cuda' if GPU is available                        |
+| -sz, --layer_size      | 5                    | Number of Convolution Layers                          |
+| -ic, --in_channels     | 3                    | Number of Input Channels                              |
+| -is, --in_size         | 64                   | Size of Input image                                   |
+| -f, --filter_size      | 16                   | Number of Convolution Filters                         |
+| -ks, --kernel_size     | 3                    | Convolutional filter size                             |
+| -p, --padding_mode     | 'same'               | Padding strategy for inputs                           |
+| -e, --epochs           | 1                    | Number of epochs for the model to train               |
+| -bn, --batch_norm      | True                 | Use Batch Normalisation as regularistion              |
+| -do, --drop_out        | 0.0                  | Use dropout regularisation, input dropout probability |
+| -dn, --n_dense_neurons | 128                  | Number of neurons in the dense layer                  |
+| -b, --bias             | True                 | Bias in Convolution layer                             |
+| -a, --activation       | relu                 | Activation layer after convolutional layer            |
+| -bs, --batch_size      | 64                   | Batch size for model training                         |
+| -w_d, --weight_decay   | 0.0                  | Weight decay                                          |
+| -lr, --learning_rate   | 0.001                | Learning Rate for the model                           |
+| -o, --optimiser        | 'adam'               | Optimiser to minimise the model's loss                |
+| -v, --validation       | True                 | Use Validation for training                           |
+| -log, --log            | True                 | Use wandb logging                                     |
+| -wp, --wandb_project   | 'da6401_assignment2' | Wandb project name                                    |
+| -we, --wandb_entity    | 'trail1'             | Wandb entity name                                     |
+
+The CLI arguments can be used by: 
+```console
+python3 train.py -d 'cpu' -sz 5 -ic 3 -is 224 -f 32 -ks 3 -fs 'same' -p 'same' -e 10 -bn True -do 0.1 -dn 128 -b True -a relu -bs 64 -w_d 0.001 -lr 0.001 -o 'adam' -v True -log True -wp 'da6401_assignment2' -we 'trail1'
+```
